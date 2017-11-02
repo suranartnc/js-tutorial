@@ -8,7 +8,8 @@ var requestHandler = function(req, res) {
       <head>\
       </head>\
       <body>\
-        <div>It works!</div>\
+        <div id="root"></div>\
+        <script src="./client.bundle.js"></script>\
       </body>\
     </html>'
 
