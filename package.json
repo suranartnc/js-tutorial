@@ -4,7 +4,7 @@
     "description": "",
     "main": "src/server.js",
     "scripts": {
-        "start": "node src/server.js"
+        "start": "nodemon src/server.js"
     },
     "author": "",
     "license": "ISC",
@@ -15,6 +15,7 @@
         "eslint-config-prettier": "^2.7.0",
         "eslint-plugin-prettier": "^2.3.1",
         "eslint-plugin-react": "^7.4.0",
+        "nodemon": "^1.12.1",
         "prettier": "^1.7.4"
     }
 }
