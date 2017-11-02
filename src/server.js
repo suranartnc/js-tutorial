@@ -12,7 +12,7 @@ app.get('*', function(req, res) {
       <head>\
       </head>\
       <body>\
-        <div id="root"></div>\
+        <div id="root">Message from server.</div>\
         <script src="./build/client.bundle.js"></script>\
       </body>\
     </html>'

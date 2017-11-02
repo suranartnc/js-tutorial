@@ -4,9 +4,9 @@
     "description": "",
     "main": "src/server.js",
     "scripts": {
-        "dev": "nodemon src/server.js",
         "start": "node src/server.js",
-        "build": "webpack"
+        "dev": "webpack --watch",
+        "build": "webpack -p"
     },
     "author": "",
     "license": "ISC",
