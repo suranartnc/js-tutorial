@@ -2,9 +2,9 @@
     "name": "react-tutorial",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "src/server.js",
     "scripts": {
-        "start": "node index.js"
+        "start": "node src/server.js"
     },
     "author": "",
     "license": "ISC",
