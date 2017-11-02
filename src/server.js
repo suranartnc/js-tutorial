@@ -1,8 +1,12 @@
-var http = require('http')
-var port = 8080
+var express = require('express')
 
-var requestHandler = function(req, res) {
-  // Generate HTML for web page
+var port = 8080
+var app = express()
+
+app.listen(port)
+app.use(express.static('public'))
+
+app.get('*', function(req, res) {
   var html =
     '<html>\
       <head>\
@@ -13,17 +17,5 @@ var requestHandler = function(req, res) {
       </body>\
     </html>'
 
-  // Send it to web browsers
-  res.write(html)
-  res.end()
-}
-
-var server = http.createServer(requestHandler)
-
-server.listen(port, function(err) {
-  if (err) {
-    return console.log('something bad happened', err)
-  }
-
-  console.log(`server is listening on ${port}`)
+  res.send(html)
 })
