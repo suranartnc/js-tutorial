@@ -13,7 +13,7 @@ app.get('*', function(req, res) {
       </head>\
       <body>\
         <div id="root"></div>\
-        <script src="./client.bundle.js"></script>\
+        <script src="./build/client.bundle.js"></script>\
       </body>\
     </html>'
 
