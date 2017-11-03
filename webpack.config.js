@@ -5,6 +5,18 @@ var config = {
   output: {
     path: path.resolve(__dirname, 'public/build'),
     filename: 'client.bundle.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /.js$/,
+        use: [
+          {
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    ]
   }
 }
 
