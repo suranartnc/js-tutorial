@@ -1,4 +1,4 @@
-export function render(content, node = 'root') {
+export function renderToDOM(content, node = 'root') {
   document.getElementById(node).innerHTML = content
 }
 
