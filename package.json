@@ -2,14 +2,14 @@
     "name": "react-tutorial",
     "version": "1.0.0",
     "description": "",
-    "main": "src/server.js",
+    "main": "index.js",
     "scripts": {
-        "start": "node src/server.js",
+        "start": "node index.js",
         "dev": "webpack --watch",
         "build": "webpack -p"
     },
-    "author": "",
-    "license": "ISC",
+    "author": "Suranart Niamcome",
+    "license": "MIT",
     "dependencies": {
         "babel": "^6.23.0",
         "babel-core": "^6.26.0",

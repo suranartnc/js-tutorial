@@ -1,21 +1,16 @@
-var express = require('express')
+import express from 'express'
 
-var port = 8080
-var app = express()
+import { renderToString } from './utils/output'
+import renderApp from './app'
+
+const port = 8080
+const app = express()
 
 app.listen(port)
 app.use(express.static('public'))
 
 app.get('*', function(req, res) {
-  var html =
-    '<html>\
-      <head>\
-      </head>\
-      <body>\
-        <div id="root">Message from server.</div>\
-        <script src="./build/client.bundle.js"></script>\
-      </body>\
-    </html>'
-
+  const content = renderApp()
+  const html = renderToString(content)
   res.send(html)
 })
