@@ -1,9 +1,7 @@
-import { findCatAge } from './modules/catAge'
+require('es6-promise').polyfill()
+require('isomorphic-fetch')
 
 export default function renderApp() {
-  const myCatAge = 3
-  const myCatLifeStyle = 'outdoor'
-  const myActualCatAge = findCatAge(myCatAge, myCatLifeStyle)
-
-  return `My cat's age in human years is ${myActualCatAge}`
+  const api = 'https://api.github.com/users/suranartnc/repos'
+  return api
 }
