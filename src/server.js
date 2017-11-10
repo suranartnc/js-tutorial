@@ -10,7 +10,8 @@ app.listen(port)
 app.use(express.static('public'))
 
 app.get('*', function(req, res) {
-  const content = renderApp()
-  const html = renderToString(content)
-  res.send(html)
+  renderApp().then(content => {
+    const html = renderToString(content)
+    res.send(html)
+  })
 })
