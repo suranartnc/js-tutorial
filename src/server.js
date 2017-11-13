@@ -1,4 +1,5 @@
 import express from 'express'
+import React from 'react'
 import ReactDOM from 'react-dom/server'
 import App from './app'
 
@@ -9,7 +10,7 @@ app.listen(port)
 app.use(express.static('public'))
 
 app.get('*', function(req, res) {
-  const content = ReactDOM.renderToString(App)
+  const content = ReactDOM.renderToString(<App />)
 
   const html = `
     <html>
