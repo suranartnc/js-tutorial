@@ -18,13 +18,13 @@
     "eslint:recommended",
     "plugin:react/recommended"
   ],
-  "plugins": [
-    "prettier",
-    "react"
-  ],
-  "rules": {
-    "prettier/prettier": "error"
-  },
+  // "plugins": [
+  //   "prettier",
+  //   "react"
+  // ],
+  // "rules": {
+  //   "prettier/prettier": "error"
+  // },
   "globals": {
     "fetch": true
   }

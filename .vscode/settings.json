@@ -1,5 +1,6 @@
 {
   "eslint.autoFixOnSave": true,
+  "editor.formatOnSave": true,
   "vsicons.presets.angular": false,
   "javascript.validate.enable": false,
   "search.exclude": {
