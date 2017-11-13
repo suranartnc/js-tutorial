@@ -1,6 +1,7 @@
 var path = require('path')
 
 var config = {
+  devtool: 'cheap-module-eval-source-map',
   entry: './src/client.js',
   output: {
     path: path.resolve(__dirname, 'public/build'),

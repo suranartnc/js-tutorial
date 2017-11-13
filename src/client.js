@@ -1,6 +1,6 @@
-import { renderToDOM } from './utils/output'
-import renderApp from './app'
+import ReactDOM from 'react-dom'
+import App from './app'
 
-renderApp().then(content => {
-  renderToDOM(content)
-})
+const container = document.getElementById('root')
+
+ReactDOM.hydrate(App, container)
