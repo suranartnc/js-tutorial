@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 function Container({ style, title, color }) {
   const styleApplied = {
@@ -10,6 +11,12 @@ function Container({ style, title, color }) {
   }
 
   return <div style={styleApplied}>{title}</div>
+}
+
+Container.propTypes = {
+  title: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  style: PropTypes.object
 }
 
 function App() {
