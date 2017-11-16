@@ -1,8 +1,8 @@
 import React from 'react'
-import TimerContainer from './containers/TimerContainer'
+import TimerApp from './modules/Timer/TimerApp'
 
 function App() {
-  return <TimerContainer />
+  return <TimerApp />
 }
 
 export default App
