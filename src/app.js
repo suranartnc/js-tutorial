@@ -30,23 +30,40 @@ class CategoryContainer extends React.Component {
     super(props)
 
     this.api = 'http://myaday.net/pop/api.php'
+
     this.state = {
+      loading: false,
       categories: []
     }
+
+    this.fetchBookData = this.fetchBookData.bind(this)
   }
 
-  componentDidMount() {
+  fetchBookData() {
+    this.setState({
+      loading: true
+    })
+
     fetch(this.api)
       .then(res => res.json())
       .then(json => {
         this.setState({
+          loading: false,
           categories: json.data
         })
       })
   }
 
   render() {
-    return <CategoryList categories={this.state.categories} />
+    return (
+      <div>
+        <button onClick={this.fetchBookData}>Fetch</button>
+
+        {this.state.loading === true && <div>Loading...</div>}
+
+        <CategoryList categories={this.state.categories} />
+      </div>
+    )
   }
 }
 
