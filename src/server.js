@@ -16,6 +16,21 @@ app.get('*', function(req, res) {
     <html>
       <head>
         <title>JavaScript Tutorial</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <style>
+          * {
+            box-sizing: border-box;
+            margin: 0px;
+            padding: 0px;
+          }
+          html {
+            font-size: 87.5%;
+          }
+          body {
+            font-family: arial, 'sans-serif';
+            font-size: 1em;
+          }
+        </style>
       </head>
       <body>
         <div id="root">${content}</div>

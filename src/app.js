@@ -1,8 +1,8 @@
 import React from 'react'
-import CategoryContainer from './containers/CategoryContainer'
+import TimerContainer from './containers/TimerContainer'
 
 function App() {
-  return <CategoryContainer />
+  return <TimerContainer />
 }
 
 export default App
