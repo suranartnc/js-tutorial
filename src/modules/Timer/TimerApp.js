@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import TimerCounter from './TimerCounter'
 import TimerPanel from './TimerPanel'
@@ -21,9 +22,16 @@ function TimerApp({ pause, pauseHandler, playHandler }) {
   )
 }
 
+TimerApp.propTypes = {
+  pause: PropTypes.bool,
+  pauseHandler: PropTypes.func,
+  playHandler: PropTypes.func
+}
+
 export default class TimerContainer extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
       pause: false
     }

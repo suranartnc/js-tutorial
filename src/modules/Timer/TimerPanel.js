@@ -19,5 +19,7 @@ export default function Panel({ pause = false, playHandler, pauseHandler }) {
 }
 
 Panel.propTypes = {
-  pause: PropTypes.bool
+  pause: PropTypes.bool,
+  playHandler: PropTypes.func,
+  pauseHandler: PropTypes.func
 }
