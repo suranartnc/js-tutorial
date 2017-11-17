@@ -42,6 +42,7 @@ export default class TimerContainer extends React.Component {
 
     this.playHandler = this.playHandler.bind(this)
     this.pauseHandler = this.pauseHandler.bind(this)
+    this.stopHandler = this.stopHandler.bind(this)
   }
 
   playHandler() {
@@ -67,7 +68,10 @@ export default class TimerContainer extends React.Component {
   }
 
   stopHandler() {
-    console.log('stop')
+    this.pauseHandler()
+    this.setState({
+      count: 0
+    })
   }
 
   render() {
