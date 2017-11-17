@@ -5,12 +5,16 @@ import TimerPanel from './TimerPanel'
 import TimerLaps from './TimerLaps'
 import styles from './TimerStyles'
 
-function TimerApp() {
+function TimerApp({ pause, pauseHandler, playHandler }) {
   return (
     <div style={styles.app}>
       <div style={styles.wrapper}>
         <TimerCounter />
-        <TimerPanel />
+        <TimerPanel
+          pause={pause}
+          pauseHandler={pauseHandler}
+          playHandler={playHandler}
+        />
         <TimerLaps />
       </div>
     </div>
@@ -20,9 +24,33 @@ function TimerApp() {
 export default class TimerContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      pause: false
+    }
+
+    this.playHandler = this.playHandler.bind(this)
+    this.pauseHandler = this.pauseHandler.bind(this)
   }
+
+  playHandler() {
+    this.setState({
+      pause: true
+    })
+  }
+
+  pauseHandler() {
+    this.setState({
+      pause: false
+    })
+  }
+
   render() {
-    return <TimerApp />
+    return (
+      <TimerApp
+        pause={this.state.pause}
+        pauseHandler={this.pauseHandler}
+        playHandler={this.playHandler}
+      />
+    )
   }
 }
