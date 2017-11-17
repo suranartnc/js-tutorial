@@ -2,6 +2,7 @@ import React from 'react'
 
 import TimerCounter from './TimerCounter'
 import TimerPanel from './TimerPanel'
+import TimerLaps from './TimerLaps'
 import styles from './TimerStyles'
 
 function TimerApp() {
@@ -10,6 +11,7 @@ function TimerApp() {
       <div style={styles.wrapper}>
         <TimerCounter />
         <TimerPanel />
+        <TimerLaps />
       </div>
     </div>
   )

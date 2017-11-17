@@ -41,5 +41,15 @@ export default {
     height: '220px',
     margin: '0 auto',
     color: '#fff'
+  },
+  laps: {
+    backgroundColor: 'white',
+    width: '100%',
+    height: '100px',
+    overflow: 'auto',
+    borderRadius: '5px',
+    textAlign: 'center',
+    padding: '10px',
+    fontSize: '1.8rem'
   }
 }
