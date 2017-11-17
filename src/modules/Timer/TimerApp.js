@@ -6,11 +6,11 @@ import TimerPanel from './TimerPanel'
 import TimerLaps from './TimerLaps'
 import styles from './TimerStyles'
 
-function TimerApp({ pause, pauseHandler, playHandler }) {
+function TimerApp({ pause, count, pauseHandler, playHandler }) {
   return (
     <div style={styles.app}>
       <div style={styles.wrapper}>
-        <TimerCounter />
+        <TimerCounter count={count} />
         <TimerPanel
           pause={pause}
           pauseHandler={pauseHandler}
@@ -24,6 +24,7 @@ function TimerApp({ pause, pauseHandler, playHandler }) {
 
 TimerApp.propTypes = {
   pause: PropTypes.bool,
+  count: PropTypes.number,
   pauseHandler: PropTypes.func,
   playHandler: PropTypes.func
 }
@@ -33,7 +34,8 @@ export default class TimerContainer extends React.Component {
     super(props)
 
     this.state = {
-      pause: false
+      pause: false,
+      count: 0
     }
 
     this.playHandler = this.playHandler.bind(this)
@@ -44,18 +46,29 @@ export default class TimerContainer extends React.Component {
     this.setState({
       pause: true
     })
+
+    this.timer = setInterval(() => {
+      this.setState({
+        count: this.state.count + 1
+      })
+    }, 1000)
   }
 
   pauseHandler() {
     this.setState({
       pause: false
     })
+
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
   }
 
   render() {
     return (
       <TimerApp
         pause={this.state.pause}
+        count={this.state.count}
         pauseHandler={this.pauseHandler}
         playHandler={this.playHandler}
       />
