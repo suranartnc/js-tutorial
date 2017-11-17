@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 import styles from './TimerStyles'
 
 export default function TimerCounter({ count = 0 }) {
-  return <div style={styles.counter}>{count}</div>
+  let parsedCount = count / 100
+  return <div style={styles.counter}>{parsedCount}</div>
 }
 
 TimerCounter.propTypes = {

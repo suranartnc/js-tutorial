@@ -67,7 +67,7 @@ export default class TimerContainer extends React.Component {
       this.setState({
         count: this.state.count + 1
       })
-    }, 1000)
+    }, 10)
   }
 
   pauseHandler() {
@@ -83,12 +83,15 @@ export default class TimerContainer extends React.Component {
   stopHandler() {
     this.pauseHandler()
     this.setState({
-      count: 0
+      count: 0,
+      laps: []
     })
   }
 
   lapHandler() {
-    console.log('lap!!!')
+    this.setState({
+      laps: this.state.laps.concat([this.state.count / 100])
+    })
   }
 
   render() {
