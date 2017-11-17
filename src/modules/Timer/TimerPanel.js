@@ -8,7 +8,8 @@ export default function Panel({
   pause = false,
   playHandler,
   pauseHandler,
-  stopHandler
+  stopHandler,
+  lapHandler
 }) {
   return (
     <div style={styles.panel}>
@@ -18,7 +19,7 @@ export default function Panel({
         <TimerButton icon="play" handler={playHandler} />
       )}
       <TimerButton icon="stop" handler={stopHandler} />
-      <TimerButton icon="clock-o" />
+      <TimerButton icon="clock-o" handler={lapHandler} />
     </div>
   )
 }
@@ -27,5 +28,6 @@ Panel.propTypes = {
   pause: PropTypes.bool,
   playHandler: PropTypes.func,
   pauseHandler: PropTypes.func,
-  stopHandler: PropTypes.func
+  stopHandler: PropTypes.func,
+  lapHandler: PropTypes.func
 }
