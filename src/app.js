@@ -1,8 +1,8 @@
 import React from 'react'
-import TimerApp from './modules/Timer/TimerApp'
+import DictApp from './modules/Dictionary/DictApp'
 
 function App() {
-  return <TimerApp />
+  return <DictApp />
 }
 
 export default App
