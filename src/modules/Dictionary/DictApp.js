@@ -42,14 +42,13 @@ export default class DictContainer extends React.Component {
     })
   }
 
+  findResults(keywords) {
+    return jsonData.filter(word => word.search === keywords)
+  }
+
   submitHandler() {
-    this.setState({
-      results: [
-        {
-          result: 'กิน'
-        }
-      ]
-    })
+    const results = this.findResults(this.state.keywords)
+    this.setState({ results })
   }
 
   render() {
