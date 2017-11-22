@@ -4,7 +4,13 @@ import styles from './DictStyles'
 import jsonData from './data/eng2thai.json'
 
 function ResultList({ results }) {
-  return <ul>{results.map(item => <li>{item.result}</li>)}</ul>
+  return (
+    <ul>
+      {results.map(function(item) {
+        return <li>{item.result}</li>
+      })}
+    </ul>
+  )
 }
 
 class SearchForm extends React.Component {
