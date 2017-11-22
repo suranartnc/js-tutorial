@@ -1,10 +1,54 @@
 import React from 'react'
 import styles from './ToDoStyles'
 
-function ToDoApp() {
+function ToDoFooter() {
+  return (
+    <div>
+      <p>0 items left</p>
+      <button>Clear completed</button>
+    </div>
+  )
+}
+
+function ToDoForm() {
+  return (
+    <div>
+      <form action="">
+        <input type="text" placeholder="What needs to be done?" />
+      </form>
+    </div>
+  )
+}
+
+function ToDoList({ todos }) {
+  return (
+    <ul>
+      {todos.map(function(todo) {
+        return <ToDoItem todo={todo} />
+      })}
+    </ul>
+  )
+}
+
+function ToDoItem({ todo }) {
+  return (
+    <li>
+      <label htmlFor="">
+        <input type="checkbox" />
+        {todo.title}
+      </label>
+    </li>
+  )
+}
+
+function ToDoApp({ todos }) {
   return (
     <div style={styles.app}>
-      <div style={styles.wrapper}>To-Do App</div>
+      <div style={styles.wrapper}>
+        <ToDoForm />
+        <ToDoList todos={todos} />
+        <ToDoFooter />
+      </div>
     </div>
   )
 }
@@ -12,10 +56,25 @@ function ToDoApp() {
 export default class ToDoContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      todos: [
+        {
+          id: 1,
+          title: 'Task 1'
+        },
+        {
+          id: 2,
+          title: 'Task 2'
+        },
+        {
+          id: 3,
+          title: 'Task 3'
+        }
+      ]
+    }
   }
 
   render() {
-    return <ToDoApp />
+    return <ToDoApp todos={this.state.todos} />
   }
 }
