@@ -5,6 +5,11 @@ function ToDoFooter() {
   return (
     <div>
       <p>0 items left</p>
+      <div>
+        <button>All</button>
+        <button>Active</button>
+        <button>Completed</button>
+      </div>
       <button>Clear completed</button>
     </div>
   )
@@ -16,6 +21,7 @@ function ToDoForm() {
       <form action="">
         <input type="text" placeholder="What needs to be done?" />
       </form>
+      <button>Check all</button>
     </div>
   )
 }
@@ -36,6 +42,7 @@ function ToDoItem({ todo }) {
       <label htmlFor="">
         <input type="checkbox" />
         {todo.title}
+        <button>X</button>
       </label>
     </li>
   )

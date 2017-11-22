@@ -11,6 +11,6 @@ export default {
     height: '100%',
     padding: '50px',
     flexDirection: 'column',
-    justifyContent: 'flex-start'
+    justifyContent: 'center'
   }
 }
