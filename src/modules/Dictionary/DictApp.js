@@ -7,16 +7,50 @@ function ResultList({ results }) {
   return <ul>{results.map(item => <li>{item.result}</li>)}</ul>
 }
 
-function DictApp({ keywords, results, inputHandler, submitHandler }) {
+class SearchForm extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      keywords: ''
+    }
+
+    this.inputHandler = this.inputHandler.bind(this)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+  }
+
+  inputHandler(event) {
+    this.setState({
+      keywords: event.target.value
+    })
+  }
+
+  handleFormSubmit() {
+    this.props.submitHandler(this.state.keywords)
+    this.setState({
+      keywords: ''
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <input
+          placeholder="keywords..."
+          value={this.state.keywords}
+          onChange={this.inputHandler}
+        />
+        <button onClick={this.handleFormSubmit}>Search</button>
+      </div>
+    )
+  }
+}
+
+function DictApp({ results, submitHandler }) {
   return (
     <div style={styles.app}>
       <div style={styles.wrapper}>
-        <input
-          placeholder="keywords..."
-          value={keywords}
-          onChange={inputHandler}
-        />
-        <button onClick={submitHandler}>Search</button>
+        <SearchForm submitHandler={submitHandler} />
         <ResultList results={results} />
       </div>
     </div>
@@ -28,38 +62,27 @@ export default class DictContainer extends React.Component {
     super(props)
 
     this.state = {
-      keywords: '',
       results: []
     }
 
-    this.inputHandler = this.inputHandler.bind(this)
     this.submitHandler = this.submitHandler.bind(this)
-  }
-
-  inputHandler(event) {
-    this.setState({
-      keywords: event.target.value
-    })
   }
 
   findResults(keywords) {
     return jsonData.filter(word => word.search === keywords)
   }
 
-  submitHandler() {
-    const results = this.findResults(this.state.keywords)
+  submitHandler(keywords) {
+    const results = this.findResults(keywords)
     this.setState({
-      results,
-      keywords: ''
+      results
     })
   }
 
   render() {
     return (
       <DictApp
-        keywords={this.state.keywords}
         results={this.state.results}
-        inputHandler={this.inputHandler}
         submitHandler={this.submitHandler}
       />
     )
