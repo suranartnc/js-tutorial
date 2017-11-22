@@ -48,7 +48,10 @@ export default class DictContainer extends React.Component {
 
   submitHandler() {
     const results = this.findResults(this.state.keywords)
-    this.setState({ results })
+    this.setState({
+      results,
+      keywords: ''
+    })
   }
 
   render() {
