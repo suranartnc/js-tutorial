@@ -7,7 +7,7 @@ function ResultList({ results }) {
   return (
     <ul>
       {results.map(function(item) {
-        return <li>{item.result}</li>
+        return <li key={item.result}>{item.result}</li>
       })}
     </ul>
   )
