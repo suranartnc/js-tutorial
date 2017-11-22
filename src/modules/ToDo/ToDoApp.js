@@ -3,14 +3,20 @@ import styles, { globalStyles } from './ToDoStyles'
 
 function ToDoFooter() {
   return (
-    <div>
-      <p>0 items left</p>
-      <div>
-        <button>All</button>
-        <button>Active</button>
-        <button>Completed</button>
-      </div>
-      <button>Clear completed</button>
+    <div style={styles.footer.container}>
+      <p style={styles.footer.itemsLeft}>0 items left</p>
+      <ToDoFooterFilters />
+      <button style={styles.footerFilters.button}>Clear completed</button>
+    </div>
+  )
+}
+
+function ToDoFooterFilters() {
+  return (
+    <div style={styles.footerFilters.container}>
+      <button style={styles.footerFilters.button}>All</button>
+      <button style={styles.footerFilters.button}>Active</button>
+      <button style={styles.footerFilters.button}>Completed</button>
     </div>
   )
 }
@@ -19,9 +25,13 @@ function ToDoForm() {
   return (
     <div>
       <form action="">
-        <input type="text" placeholder="What needs to be done?" />
+        <input
+          style={styles.todoInput}
+          type="text"
+          placeholder="Enter your task here..."
+        />
       </form>
-      <button>Check all</button>
+      <button style={styles.footerFilters.button}>Check all</button>
     </div>
   )
 }
@@ -38,24 +48,24 @@ function ToDoList({ todos }) {
 
 function ToDoItem({ todo }) {
   return (
-    <li>
-      <label htmlFor="">
-        <input type="checkbox" />
-        <span>{todo.title}</span>
-        <button>X</button>
-      </label>
+    <li style={styles.todoItem}>
+      <input type="checkbox" style={styles.todoItemCheckBox} />
+      <span>{todo.title}</span>
+      <button style={styles.todoItemDelete}>X</button>
     </li>
   )
 }
 
 function ToDoApp({ todos }) {
   return (
-    <div style={styles.app}>
+    <div style={styles.body}>
       <div style={styles.wrapper}>
         <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
-        <ToDoForm />
-        <ToDoList todos={todos} />
-        <ToDoFooter />
+        <div style={styles.app}>
+          <ToDoForm />
+          <ToDoList todos={todos} />
+          <ToDoFooter />
+        </div>
       </div>
     </div>
   )
@@ -67,15 +77,12 @@ export default class ToDoContainer extends React.Component {
     this.state = {
       todos: [
         {
-          id: 1,
           title: 'Task 1'
         },
         {
-          id: 2,
           title: 'Task 2'
         },
         {
-          id: 3,
           title: 'Task 3'
         }
       ]
