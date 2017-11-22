@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './ToDoStyles'
+import styles, { globalStyles } from './ToDoStyles'
 
 function ToDoFooter() {
   return (
@@ -41,7 +41,7 @@ function ToDoItem({ todo }) {
     <li>
       <label htmlFor="">
         <input type="checkbox" />
-        {todo.title}
+        <span>{todo.title}</span>
         <button>X</button>
       </label>
     </li>
@@ -52,6 +52,7 @@ function ToDoApp({ todos }) {
   return (
     <div style={styles.app}>
       <div style={styles.wrapper}>
+        <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
         <ToDoForm />
         <ToDoList todos={todos} />
         <ToDoFooter />
