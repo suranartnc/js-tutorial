@@ -1,8 +1,8 @@
 import React from 'react'
-import DictApp from './modules/Dictionary/DictApp'
+import ToDoApp from './modules/ToDo/ToDoApp'
 
 function App() {
-  return <DictApp />
+  return <ToDoApp />
 }
 
 export default App
