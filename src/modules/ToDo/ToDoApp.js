@@ -100,7 +100,8 @@ export default class ToDoContainer extends React.Component {
       todos: this.state.todos.concat([
         {
           id: new Date().getTime(),
-          title
+          title,
+          completed: false
         }
       ])
     })
