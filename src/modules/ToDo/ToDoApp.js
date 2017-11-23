@@ -1,4 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
+
+import ToDoForm from './ToDoForm'
+
 import styles, { globalStyles } from './ToDoStyles'
 
 function ToDoFooter() {
@@ -19,40 +22,6 @@ function ToDoFooterFilters() {
       <button style={styles.footerFilters.button}>Completed</button>
     </div>
   )
-}
-
-class ToDoForm extends Component {
-  state = {
-    title: ''
-  }
-  handleTitleChanged = event => {
-    this.setState({
-      title: event.target.value
-    })
-  }
-  handleSubmit = event => {
-    event.preventDefault()
-    this.setState({
-      title: ''
-    })
-    this.props.submitToDo(this.state.title)
-  }
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            style={styles.todoInput}
-            type="text"
-            placeholder="Enter your task here..."
-            value={this.state.title}
-            onChange={this.handleTitleChanged}
-          />
-        </form>
-        <button style={styles.footerFilters.button}>Check all</button>
-      </div>
-    )
-  }
 }
 
 function ToDoList({ todos, removeTodo }) {
