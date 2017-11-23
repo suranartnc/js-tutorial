@@ -1,28 +1,9 @@
 import React from 'react'
 
 import ToDoForm from './ToDoForm'
+import ToDoFooter from './ToDoFooter'
 
 import styles, { globalStyles } from './ToDoStyles'
-
-function ToDoFooter() {
-  return (
-    <div style={styles.footer.container}>
-      <p style={styles.footer.itemsLeft}>0 items left</p>
-      <ToDoFooterFilters />
-      <button style={styles.footerFilters.button}>Clear completed</button>
-    </div>
-  )
-}
-
-function ToDoFooterFilters() {
-  return (
-    <div style={styles.footerFilters.container}>
-      <button style={styles.footerFilters.button}>All</button>
-      <button style={styles.footerFilters.button}>Active</button>
-      <button style={styles.footerFilters.button}>Completed</button>
-    </div>
-  )
-}
 
 function ToDoList({ todos, removeTodo }) {
   return (
