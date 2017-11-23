@@ -55,34 +55,36 @@ class ToDoForm extends Component {
   }
 }
 
-function ToDoList({ todos }) {
+function ToDoList({ todos, removeTodo }) {
   return (
     <ul>
       {todos.map(function(todo) {
-        return <ToDoItem key={todo.id} todo={todo} />
+        return <ToDoItem key={todo.id} todo={todo} removeTodo={removeTodo} />
       })}
     </ul>
   )
 }
 
-function ToDoItem({ todo }) {
+function ToDoItem({ todo, removeTodo }) {
   return (
     <li style={styles.todoItem}>
       <input type="checkbox" style={styles.todoItemCheckBox} />
       <span>{todo.title}</span>
-      <button style={styles.todoItemDelete}>X</button>
+      <button onClick={removeTodo} style={styles.todoItemDelete}>
+        X
+      </button>
     </li>
   )
 }
 
-function ToDoApp({ todos, submitToDo }) {
+function ToDoApp({ todos, submitToDo, removeTodo }) {
   return (
     <div style={styles.body}>
       <div style={styles.wrapper}>
         <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
         <div style={styles.app}>
           <ToDoForm submitToDo={submitToDo} />
-          <ToDoList todos={todos} />
+          <ToDoList todos={todos} removeTodo={removeTodo} />
           <ToDoFooter />
         </div>
       </div>
@@ -93,6 +95,15 @@ function ToDoApp({ todos, submitToDo }) {
 export default class ToDoContainer extends React.Component {
   state = {
     todos: []
+  }
+
+  removeTodo = id => {
+    console.log('remove')
+    this.setState({
+      todos: this.state.todos.filter(function(todo) {
+        return todo.id !== id
+      })
+    })
   }
 
   submitToDo = title => {
@@ -108,6 +119,12 @@ export default class ToDoContainer extends React.Component {
   }
 
   render() {
-    return <ToDoApp todos={this.state.todos} submitToDo={this.submitToDo} />
+    return (
+      <ToDoApp
+        todos={this.state.todos}
+        submitToDo={this.submitToDo}
+        removeTodo={this.removeTodo}
+      />
+    )
   }
 }
