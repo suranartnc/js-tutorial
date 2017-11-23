@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import styles, { globalStyles } from './ToDoStyles'
 
 function ToDoFooter() {
@@ -21,26 +21,45 @@ function ToDoFooterFilters() {
   )
 }
 
-function ToDoForm() {
-  return (
-    <div>
-      <form action="">
-        <input
-          style={styles.todoInput}
-          type="text"
-          placeholder="Enter your task here..."
-        />
-      </form>
-      <button style={styles.footerFilters.button}>Check all</button>
-    </div>
-  )
+class ToDoForm extends Component {
+  state = {
+    title: ''
+  }
+  handleTitleChanged = event => {
+    this.setState({
+      title: event.target.value
+    })
+  }
+  handleSubmit = event => {
+    event.preventDefault()
+    this.setState({
+      title: ''
+    })
+    this.props.submitToDo(this.state.title)
+  }
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            style={styles.todoInput}
+            type="text"
+            placeholder="Enter your task here..."
+            value={this.state.title}
+            onChange={this.handleTitleChanged}
+          />
+        </form>
+        <button style={styles.footerFilters.button}>Check all</button>
+      </div>
+    )
+  }
 }
 
 function ToDoList({ todos }) {
   return (
     <ul>
       {todos.map(function(todo) {
-        return <ToDoItem todo={todo} />
+        return <ToDoItem key={todo.id} todo={todo} />
       })}
     </ul>
   )
@@ -56,13 +75,13 @@ function ToDoItem({ todo }) {
   )
 }
 
-function ToDoApp({ todos }) {
+function ToDoApp({ todos, submitToDo }) {
   return (
     <div style={styles.body}>
       <div style={styles.wrapper}>
         <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
         <div style={styles.app}>
-          <ToDoForm />
+          <ToDoForm submitToDo={submitToDo} />
           <ToDoList todos={todos} />
           <ToDoFooter />
         </div>
@@ -72,24 +91,22 @@ function ToDoApp({ todos }) {
 }
 
 export default class ToDoContainer extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      todos: [
+  state = {
+    todos: []
+  }
+
+  submitToDo = title => {
+    this.setState({
+      todos: this.state.todos.concat([
         {
-          title: 'Task 1'
-        },
-        {
-          title: 'Task 2'
-        },
-        {
-          title: 'Task 3'
+          id: new Date().getTime(),
+          title
         }
-      ]
-    }
+      ])
+    })
   }
 
   render() {
-    return <ToDoApp todos={this.state.todos} />
+    return <ToDoApp todos={this.state.todos} submitToDo={this.submitToDo} />
   }
 }
