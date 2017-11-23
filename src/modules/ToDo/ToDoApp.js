@@ -97,13 +97,8 @@ export default class ToDoContainer extends React.Component {
     todos: []
   }
 
-  removeTodo = id => {
+  removeTodo = () => {
     console.log('remove')
-    this.setState({
-      todos: this.state.todos.filter(function(todo) {
-        return todo.id !== id
-      })
-    })
   }
 
   submitToDo = title => {
