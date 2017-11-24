@@ -1,8 +1,8 @@
 import React from 'react'
-import ToDoApp from './modules/ToDo/ToDoApp'
+import CounterApp from './modules/Counter/CounterApp'
 
 function App() {
-  return <ToDoApp />
+  return <CounterApp />
 }
 
 export default App
