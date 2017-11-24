@@ -16,7 +16,7 @@ function ToDoItem({ todo, removeTodo }) {
     <li style={styles.todoItem}>
       <input type="checkbox" style={styles.todoItemCheckBox} />
       <span>{todo.title}</span>
-      <button onClick={removeTodo} style={styles.todoItemDelete}>
+      <button onClick={removeTodo(todo.id)} style={styles.todoItemDelete}>
         X
       </button>
     </li>
