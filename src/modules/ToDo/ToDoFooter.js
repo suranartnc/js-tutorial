@@ -20,13 +20,19 @@ export default function ToDoFooter({ todos, clearCompleted, filterTasks }) {
 function ToDoFooterFilters({ filterTasks }) {
   return (
     <div style={styles.footerFilters.container}>
-      <button onClick={filterTasks} style={styles.footerFilters.button}>
+      <button onClick={filterTasks('all')} style={styles.footerFilters.button}>
         All
       </button>
-      <button onClick={filterTasks} style={styles.footerFilters.button}>
+      <button
+        onClick={filterTasks('active')}
+        style={styles.footerFilters.button}
+      >
         Active
       </button>
-      <button onClick={filterTasks} style={styles.footerFilters.button}>
+      <button
+        onClick={filterTasks('completed')}
+        style={styles.footerFilters.button}
+      >
         Completed
       </button>
     </div>

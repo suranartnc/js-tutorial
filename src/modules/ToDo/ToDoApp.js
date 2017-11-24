@@ -8,6 +8,7 @@ import styles, { globalStyles } from './ToDoStyles'
 
 function ToDoApp({
   todos,
+  filter,
   submitToDo,
   removeTodo,
   completeTask,
@@ -23,6 +24,7 @@ function ToDoApp({
           <ToDoForm submitToDo={submitToDo} toggleCheckAll={toggleCheckAll} />
           <ToDoList
             todos={todos}
+            filter={filter}
             removeTodo={removeTodo}
             completeTask={completeTask}
           />
@@ -39,7 +41,8 @@ function ToDoApp({
 
 export default class ToDoContainer extends React.Component {
   state = {
-    todos: []
+    todos: [],
+    filter: 'all'
   }
 
   removeTodo = id => () => {
@@ -99,14 +102,15 @@ export default class ToDoContainer extends React.Component {
     })
   }
 
-  filterTasks = () => {
-    console.log('filterTasks')
+  filterTasks = filter => () => {
+    this.setState({ filter })
   }
 
   render() {
     return (
       <ToDoApp
         todos={this.state.todos}
+        filter={this.state.filter}
         submitToDo={this.submitToDo}
         removeTodo={this.removeTodo}
         completeTask={this.completeTask}
