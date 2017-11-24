@@ -29,7 +29,12 @@ export default class ToDoForm extends React.Component {
             onChange={this.handleTitleChanged}
           />
         </form>
-        <button style={styles.footerFilters.button}>Check all</button>
+        <button
+          style={styles.footerFilters.button}
+          onClick={this.props.toggleCheckAll}
+        >
+          Check all
+        </button>
       </div>
     )
   }

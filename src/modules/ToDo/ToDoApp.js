@@ -11,14 +11,15 @@ function ToDoApp({
   submitToDo,
   removeTodo,
   completeTask,
-  clearCompleted
+  clearCompleted,
+  toggleCheckAll
 }) {
   return (
     <div style={styles.body}>
       <div style={styles.wrapper}>
         <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
         <div style={styles.app}>
-          <ToDoForm submitToDo={submitToDo} />
+          <ToDoForm submitToDo={submitToDo} toggleCheckAll={toggleCheckAll} />
           <ToDoList
             todos={todos}
             removeTodo={removeTodo}
@@ -63,6 +64,15 @@ export default class ToDoContainer extends React.Component {
     })
   }
 
+  toggleCheckAll = () => {
+    this.setState({
+      todos: this.state.todos.map(function(todo) {
+        todo.completed = true
+        return todo
+      })
+    })
+  }
+
   submitToDo = title => {
     this.setState({
       todos: this.state.todos.concat([
@@ -83,6 +93,7 @@ export default class ToDoContainer extends React.Component {
         removeTodo={this.removeTodo}
         completeTask={this.completeTask}
         clearCompleted={this.clearCompleted}
+        toggleCheckAll={this.toggleCheckAll}
       />
     )
   }

@@ -25,6 +25,7 @@ function ToDoItem({ todo, removeTodo, completeTask }) {
         type="checkbox"
         style={styles.todoItemCheckBox}
         onChange={completeTask(todo.id)}
+        checked={todo.completed}
       />
       <span>{todo.title}</span>
       <button onClick={removeTodo(todo.id)} style={styles.todoItemDelete}>
