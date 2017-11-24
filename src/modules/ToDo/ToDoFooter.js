@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './ToDoStyles'
 
-export default function ToDoFooter({ todos }) {
+export default function ToDoFooter({ todos, clearCompleted }) {
   const itemsLeft = todos.filter(function(todo) {
     return todo.completed === false
   }).length
@@ -10,7 +10,9 @@ export default function ToDoFooter({ todos }) {
     <div style={styles.footer.container}>
       <p style={styles.footer.itemsLeft}>{itemsLeft} items left</p>
       <ToDoFooterFilters />
-      <button style={styles.footerFilters.button}>Clear completed</button>
+      <button style={styles.footerFilters.button} onClick={clearCompleted}>
+        Clear completed
+      </button>
     </div>
   )
 }

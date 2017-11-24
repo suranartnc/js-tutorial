@@ -6,7 +6,13 @@ import ToDoFooter from './ToDoFooter'
 
 import styles, { globalStyles } from './ToDoStyles'
 
-function ToDoApp({ todos, submitToDo, removeTodo, completeTask }) {
+function ToDoApp({
+  todos,
+  submitToDo,
+  removeTodo,
+  completeTask,
+  clearCompleted
+}) {
   return (
     <div style={styles.body}>
       <div style={styles.wrapper}>
@@ -18,7 +24,7 @@ function ToDoApp({ todos, submitToDo, removeTodo, completeTask }) {
             removeTodo={removeTodo}
             completeTask={completeTask}
           />
-          <ToDoFooter todos={todos} />
+          <ToDoFooter todos={todos} clearCompleted={clearCompleted} />
         </div>
       </div>
     </div>
@@ -49,6 +55,14 @@ export default class ToDoContainer extends React.Component {
     })
   }
 
+  clearCompleted = () => {
+    this.setState({
+      todos: this.state.todos.filter(function(todo) {
+        return todo.completed === false
+      })
+    })
+  }
+
   submitToDo = title => {
     this.setState({
       todos: this.state.todos.concat([
@@ -68,6 +82,7 @@ export default class ToDoContainer extends React.Component {
         submitToDo={this.submitToDo}
         removeTodo={this.removeTodo}
         completeTask={this.completeTask}
+        clearCompleted={this.clearCompleted}
       />
     )
   }
