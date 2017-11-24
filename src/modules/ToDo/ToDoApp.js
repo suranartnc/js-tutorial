@@ -12,7 +12,8 @@ function ToDoApp({
   removeTodo,
   completeTask,
   clearCompleted,
-  toggleCheckAll
+  toggleCheckAll,
+  filterTasks
 }) {
   return (
     <div style={styles.body}>
@@ -25,7 +26,11 @@ function ToDoApp({
             removeTodo={removeTodo}
             completeTask={completeTask}
           />
-          <ToDoFooter todos={todos} clearCompleted={clearCompleted} />
+          <ToDoFooter
+            todos={todos}
+            clearCompleted={clearCompleted}
+            filterTasks={filterTasks}
+          />
         </div>
       </div>
     </div>
@@ -94,6 +99,10 @@ export default class ToDoContainer extends React.Component {
     })
   }
 
+  filterTasks = () => {
+    console.log('filterTasks')
+  }
+
   render() {
     return (
       <ToDoApp
@@ -103,6 +112,7 @@ export default class ToDoContainer extends React.Component {
         completeTask={this.completeTask}
         clearCompleted={this.clearCompleted}
         toggleCheckAll={this.toggleCheckAll}
+        filterTasks={this.filterTasks}
       />
     )
   }
