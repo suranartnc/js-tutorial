@@ -65,9 +65,18 @@ export default class ToDoContainer extends React.Component {
   }
 
   toggleCheckAll = () => {
+    const taskNotCompletd = this.state.todos.filter(function(todo) {
+      return todo.completed === false
+    }).length
+
     this.setState({
       todos: this.state.todos.map(function(todo) {
-        todo.completed = true
+        if (taskNotCompletd !== 0) {
+          todo.completed = true
+        } else {
+          todo.completed = false
+        }
+
         return todo
       })
     })
