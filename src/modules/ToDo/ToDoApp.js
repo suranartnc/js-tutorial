@@ -6,15 +6,19 @@ import ToDoFooter from './ToDoFooter'
 
 import styles, { globalStyles } from './ToDoStyles'
 
-function ToDoApp({ todos, submitToDo, removeTodo }) {
+function ToDoApp({ todos, submitToDo, removeTodo, completeTask }) {
   return (
     <div style={styles.body}>
       <div style={styles.wrapper}>
         <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
         <div style={styles.app}>
           <ToDoForm submitToDo={submitToDo} />
-          <ToDoList todos={todos} removeTodo={removeTodo} />
-          <ToDoFooter />
+          <ToDoList
+            todos={todos}
+            removeTodo={removeTodo}
+            completeTask={completeTask}
+          />
+          <ToDoFooter todos={todos} />
         </div>
       </div>
     </div>
@@ -30,6 +34,17 @@ export default class ToDoContainer extends React.Component {
     this.setState({
       todos: this.state.todos.filter(function(todo) {
         return todo.id !== id
+      })
+    })
+  }
+
+  completeTask = id => () => {
+    this.setState({
+      todos: this.state.todos.map(function(todo) {
+        if (todo.id === id) {
+          todo.completed = !todo.completed
+        }
+        return todo
       })
     })
   }
@@ -52,6 +67,7 @@ export default class ToDoContainer extends React.Component {
         todos={this.state.todos}
         submitToDo={this.submitToDo}
         removeTodo={this.removeTodo}
+        completeTask={this.completeTask}
       />
     )
   }
