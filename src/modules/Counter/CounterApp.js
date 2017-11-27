@@ -1,54 +1,68 @@
 import React from 'react'
-import AppWrapper from '../../components/AppWrapper'
-
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers as combineStateUpdater } from 'redux'
 import { Provider, connect } from 'react-redux'
 
-const counterReducer = function(state = { count: 0 }, action) {
+// View //
+class Counter extends React.Component {
+  increaseCount = () => {
+    this.props.dispatch({
+      type: 'INCREASE'
+    })
+  }
+
+  decreaseCount = () => {
+    this.props.dispatch({
+      type: 'DECREASE'
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <p>{this.props.count}</p>
+        <button onClick={this.increaseCount}>+</button>
+        <button onClick={this.decreaseCount}>-</button>
+      </div>
+    )
+  }
+}
+
+// Store & State Updater //
+function countUpdater(state = 0, action) {
   switch (action.type) {
     case 'INCREASE':
-      return {
-        count: state.count + 1
-      }
+      return state + 1
+
     case 'DECREASE':
-      return {
-        count: state.count - 1
-      }
+      return state - 1
+
     default:
       return state
   }
 }
 
-const reducer = combineReducers({
-  counter: counterReducer
+const rootStateUpdater = combineStateUpdater({
+  count: countUpdater
+
+  // Add more state here...
+  // moreStateKey: moreStateUpdater
 })
 
-const store = createStore(reducer)
+const store = createStore(rootStateUpdater)
 
-function Counter({ count, dispatch }) {
-  return (
-    <div>
-      <p>{count}</p>
-      <button onClick={() => dispatch({ type: 'INCREASE' })}>+</button>
-      <button onClick={() => dispatch({ type: 'DECREASE' })}>-</button>
-    </div>
-  )
-}
-
-function selector(state) {
+// Connector & stateSelector //
+function stateSelector(state) {
   return {
-    count: state.counter.count
+    count: state.count
   }
 }
 
-const CounterWithState = connect(selector)(Counter)
+const ConnectedCounter = connect(stateSelector)(Counter)
 
 export default function CounterApp() {
   return (
     <Provider store={store}>
-      <AppWrapper>
-        <CounterWithState />
-      </AppWrapper>
+      <ConnectedCounter />
     </Provider>
   )
 }
