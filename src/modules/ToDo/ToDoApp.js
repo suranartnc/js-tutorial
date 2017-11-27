@@ -1,5 +1,6 @@
 import React from 'react'
 
+import ToDoNotis from './TodoNotis'
 import ToDoForm from './ToDoForm'
 import ToDoList from './ToDoList'
 import ToDoFooter from './ToDoFooter'
@@ -9,6 +10,7 @@ import styles, { globalStyles } from './ToDoStyles'
 function ToDoApp({
   todos,
   filter,
+  notis,
   submitToDo,
   removeTodo,
   completeTask,
@@ -21,6 +23,7 @@ function ToDoApp({
       <div style={styles.wrapper}>
         <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
         <div style={styles.app}>
+          {notis.length > 0 && <ToDoNotis notis={notis} />}
           <ToDoForm submitToDo={submitToDo} toggleCheckAll={toggleCheckAll} />
           <ToDoList
             todos={todos}
@@ -41,6 +44,7 @@ function ToDoApp({
 
 export default class ToDoContainer extends React.Component {
   state = {
+    notis: [],
     todos: [],
     filter: 'all'
   }
@@ -111,6 +115,7 @@ export default class ToDoContainer extends React.Component {
       <ToDoApp
         todos={this.state.todos}
         filter={this.state.filter}
+        notis={this.state.notis}
         submitToDo={this.submitToDo}
         removeTodo={this.removeTodo}
         completeTask={this.completeTask}
