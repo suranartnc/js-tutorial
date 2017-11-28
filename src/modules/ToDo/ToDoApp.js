@@ -8,9 +8,9 @@ import ToDoFooter from './ToDoFooter'
 import styles, { globalStyles } from './ToDoStyles'
 
 function ToDoApp({
-  todos,
-  filter,
-  notis,
+  todos = [],
+  filter = [],
+  notis = [],
   submitToDo,
   removeTodo,
   completeTask,
@@ -43,96 +43,36 @@ function ToDoApp({
 }
 
 export default class ToDoContainer extends React.Component {
-  state = {
-    notis: [],
-    todos: [],
-    filter: 'all'
-  }
-
   removeTodo = id => () => {
-    this.setState({
-      todos: this.state.todos.filter(function(todo) {
-        return todo.id !== id
-      })
-    })
+    console.log('removeTodo id', id)
   }
 
   completeTask = id => () => {
-    this.setState({
-      todos: this.state.todos.map(function(todo) {
-        if (todo.id === id) {
-          todo.completed = !todo.completed
-        }
-        return todo
-      })
-    })
+    console.log('completeTask id', id)
   }
 
   clearCompleted = () => {
-    this.setState({
-      todos: this.state.todos.filter(function(todo) {
-        return todo.completed === false
-      })
-    })
+    console.log('clearCompleted')
   }
 
   toggleCheckAll = () => {
-    const taskNotCompletd = this.state.todos.filter(function(todo) {
-      return todo.completed === false
-    }).length
-
-    this.setState({
-      todos: this.state.todos.map(function(todo) {
-        if (taskNotCompletd !== 0) {
-          todo.completed = true
-        } else {
-          todo.completed = false
-        }
-
-        return todo
-      })
-    })
+    console.log('toggleCheckAll')
   }
 
   submitToDo = title => {
-    if (title.trim() === '') {
-      this.setState({
-        notis: this.state.notis.concat([
-          {
-            message: 'Title must not be empty!'
-          }
-        ])
-      })
-
-      setTimeout(() => {
-        this.setState({
-          notis: []
-        })
-      }, 5000)
-    } else {
-      this.setState({
-        notis: [],
-        todos: this.state.todos.concat([
-          {
-            id: new Date().getTime(),
-            title,
-            completed: false
-          }
-        ])
-      })
-    }
+    console.log('submitToDo', title)
   }
 
   filterTasks = filter => () => {
-    this.setState({ filter })
+    console.log('filterTasks', filter)
   }
 
   render() {
     return (
       <ToDoApp
-        todos={this.state.todos}
-        filter={this.state.filter}
-        notis={this.state.notis}
+        todos={this.props.todos}
+        filter={this.props.filter}
+        notis={this.props.notis}
         submitToDo={this.submitToDo}
         removeTodo={this.removeTodo}
         completeTask={this.completeTask}
