@@ -95,15 +95,32 @@ export default class ToDoContainer extends React.Component {
   }
 
   submitToDo = title => {
-    this.setState({
-      todos: this.state.todos.concat([
-        {
-          id: new Date().getTime(),
-          title,
-          completed: false
-        }
-      ])
-    })
+    if (title.trim() === '') {
+      this.setState({
+        notis: this.state.notis.concat([
+          {
+            message: 'Title must not be empty!'
+          }
+        ])
+      })
+
+      setTimeout(() => {
+        this.setState({
+          notis: []
+        })
+      }, 5000)
+    } else {
+      this.setState({
+        notis: [],
+        todos: this.state.todos.concat([
+          {
+            id: new Date().getTime(),
+            title,
+            completed: false
+          }
+        ])
+      })
+    }
   }
 
   filterTasks = filter => () => {
