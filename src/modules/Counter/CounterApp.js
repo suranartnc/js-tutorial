@@ -10,8 +10,11 @@ function countUpdater(state = 0, action) {
   switch (type) {
     case 'INCREASE':
       return state + number
+
     case 'DECREASE':
+      if (state === 0) return 0
       return state - number
+
     default:
       return state
   }
@@ -51,7 +54,9 @@ class Counter extends React.Component {
   render() {
     return (
       <div>
-        {this.props.error && <div>{this.props.error.message}</div>}
+        {this.props.error.status !== 200 && (
+          <div>{this.props.error.message}</div>
+        )}
         <p>{this.props.count}</p>
         <button onClick={this.increaseCount}>+</button>
         <button onClick={this.decreaseCount}>-</button>
