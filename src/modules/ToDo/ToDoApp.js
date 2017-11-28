@@ -1,4 +1,6 @@
 import React from 'react'
+import { createStore, combineReducers as combineStateUpdater } from 'redux'
+import { Provider, connect } from 'react-redux'
 
 import ToDoNotis from './TodoNotis'
 import ToDoForm from './ToDoForm'
@@ -42,7 +44,7 @@ function ToDoApp({
   )
 }
 
-export default class ToDoContainer extends React.Component {
+class ToDoContainer extends React.Component {
   removeTodo = id => () => {
     console.log('removeTodo id', id)
   }
@@ -60,6 +62,11 @@ export default class ToDoContainer extends React.Component {
   }
 
   submitToDo = title => {
+    if (title.trim() === '') {
+      // Display the notification
+    } else {
+      // Add new task
+    }
     console.log('submitToDo', title)
   }
 
@@ -82,4 +89,33 @@ export default class ToDoContainer extends React.Component {
       />
     )
   }
+}
+
+function todosUpdater(state = [], action) {
+  // Update todos state here...
+  return state
+}
+
+const store = createStore(
+  combineStateUpdater({
+    todos: todosUpdater
+    // filter: filterUpdater,
+    // notis: notisUpdater
+  })
+)
+
+function stateSelector(state) {
+  return {
+    todos: state.todos
+  }
+}
+
+const ConnectedToDoContainer = connect(stateSelector)(ToDoContainer)
+
+export default function ToDoAppWithRedux() {
+  return (
+    <Provider store={store}>
+      <ConnectedToDoContainer />
+    </Provider>
+  )
 }
