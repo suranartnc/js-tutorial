@@ -1,8 +1,6 @@
-import { createStore, combineReducers as combineStateUpdater } from 'redux'
-
 const emptyList = []
 
-function todosUpdater(state = emptyList, action) {
+export default function todosUpdater(state = emptyList, action) {
   const { type } = action
 
   switch (type) {
@@ -29,6 +27,17 @@ function todosUpdater(state = emptyList, action) {
       })
 
     case 'COMPLETE_ALL_TODO':
+      if (
+        state.filter(function(todo) {
+          return !todo.completed
+        }).length === 0
+      ) {
+        return state.map(function(todo) {
+          todo.completed = false
+          return todo
+        })
+      }
+
       return state.map(function(todo) {
         todo.completed = true
         return todo
@@ -43,40 +52,3 @@ function todosUpdater(state = emptyList, action) {
       return state
   }
 }
-
-function filterUpdater(state = 'all', action) {
-  const { type } = action
-
-  switch (type) {
-    case 'SET_FILTER':
-      return action.filter
-
-    default:
-      return state
-  }
-}
-
-function notisUpdater(state = emptyList, action) {
-  const { type } = action
-
-  switch (type) {
-    case 'ADD_NOTI':
-      return state.concat(action.notis)
-
-    case 'CREATE_TODO':
-      return emptyList
-
-    default:
-      return state
-  }
-}
-
-const store = createStore(
-  combineStateUpdater({
-    todos: todosUpdater,
-    filter: filterUpdater,
-    notis: notisUpdater
-  })
-)
-
-export default store

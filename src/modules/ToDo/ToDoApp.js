@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider, connect } from 'react-redux'
 
-import store from './ToDoStore'
+import store from './store/ToDoStore'
 
 import ToDoNotis from './TodoNotis'
 import ToDoForm from './ToDoForm'
