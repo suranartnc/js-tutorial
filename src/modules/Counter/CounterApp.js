@@ -4,7 +4,9 @@ import { Provider, connect } from 'react-redux'
 
 import { updateCount } from './CounterActions'
 
-function countUpdater(state = 0, action) {
+const initailCount = 0
+
+function countUpdater(state = initailCount, action) {
   const { type, number } = action
 
   switch (type) {
@@ -12,7 +14,9 @@ function countUpdater(state = 0, action) {
       return state + number
 
     case 'DECREASE':
-      if (state === 0) return 0
+      if (state - number < 0) {
+        return 0
+      }
       return state - number
 
     default:
@@ -20,24 +24,8 @@ function countUpdater(state = 0, action) {
   }
 }
 
-const initialErrorState = {
-  status: 200,
-  message: 'OK'
-}
-
-function errorUpdater(state = initialErrorState, action) {
-  const { error } = action
-
-  if (error) {
-    return error
-  }
-
-  return state
-}
-
 const rootStateUpdater = combineStateUpdater({
-  count: countUpdater,
-  error: errorUpdater
+  count: countUpdater
 })
 
 const store = createStore(rootStateUpdater)
@@ -54,9 +42,6 @@ class Counter extends React.Component {
   render() {
     return (
       <div>
-        {this.props.error.status !== 200 && (
-          <div>{this.props.error.message}</div>
-        )}
         <p>{this.props.count}</p>
         <button onClick={this.increaseCount}>+</button>
         <button onClick={this.decreaseCount}>-</button>
@@ -67,8 +52,7 @@ class Counter extends React.Component {
 
 function stateSelector(state) {
   return {
-    count: state.count,
-    error: state.error
+    count: state.count
   }
 }
 
