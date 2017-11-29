@@ -24,12 +24,12 @@ const logger = store => next => action => {
 }
 
 const apiFetcher = () => next => action => {
-  const { fetch: url, ...rest } = action
-  if (!url) {
+  const { api, ...rest } = action
+  if (!api) {
     return next(action)
   }
 
-  return fetch(url)
+  return fetch(api.url)
     .then(res => res.json())
     .then(data => {
       next({

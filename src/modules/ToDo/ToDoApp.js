@@ -53,7 +53,9 @@ class ToDoContainer extends React.Component {
   fetchTodos = () => {
     this.props.dispatch({
       type: 'CREATE_TODOS',
-      fetch: 'https://api.github.com/users/suranartnc/repos'
+      api: {
+        url: 'https://api.github.com/users/suranartnc/repos'
+      }
     })
   }
 

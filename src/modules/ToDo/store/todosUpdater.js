@@ -18,7 +18,7 @@ export default function todosUpdater(state = emptyList, action) {
         action.data
           .map(function(repo) {
             return {
-              id: Math.floor(Math.random() * (1000 - 1)) + 1,
+              id: Math.floor(Math.random() * 1000) + 1,
               title: repo.name,
               completed: false
             }
