@@ -23,7 +23,24 @@ const logger = store => next => action => {
   return result
 }
 
-const enhancer = applyMiddleware(logger)
+const apiFetcher = () => next => action => {
+  const { fetch: url, ...rest } = action
+  if (!url) {
+    return next(action)
+  }
+
+  return fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      next({
+        ...rest,
+        data
+      })
+    })
+    .catch(error => console.log(error))
+}
+
+const enhancer = applyMiddleware(apiFetcher, logger)
 const store = createStore(rootStateUpdater, enhancer)
 
 export default store

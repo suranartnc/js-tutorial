@@ -13,6 +13,19 @@ export default function todosUpdater(state = emptyList, action) {
         }
       ])
 
+    case 'CREATE_TODOS':
+      return state.concat(
+        action.data
+          .map(function(repo) {
+            return {
+              id: Math.floor(Math.random() * (1000 - 1)) + 1,
+              title: repo.name,
+              completed: false
+            }
+          })
+          .slice(0, 5)
+      )
+
     case 'REMOVE_TODO':
       return state.filter(function(todo) {
         return todo.id !== action.id

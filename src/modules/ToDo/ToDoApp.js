@@ -46,6 +46,17 @@ function ToDoApp({
 }
 
 class ToDoContainer extends React.Component {
+  componentDidMount() {
+    this.fetchTodos()
+  }
+
+  fetchTodos = () => {
+    this.props.dispatch({
+      type: 'CREATE_TODOS',
+      fetch: 'https://api.github.com/users/suranartnc/repos'
+    })
+  }
+
   removeTodo = id => () => {
     this.props.dispatch({
       type: 'REMOVE_TODO',
