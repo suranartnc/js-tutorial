@@ -5,13 +5,13 @@ export default function todosUpdater(state = emptyList, action) {
 
   switch (type) {
     case 'CREATE_TODO':
-      return state.concat([
+      return [
         {
           id: new Date().getTime(),
           title: action.title,
           completed: false
         }
-      ])
+      ].concat(state)
 
     case 'CREATE_TODOS':
       return state.concat(
