@@ -74,7 +74,14 @@ class ToDoContainer extends React.Component {
 
   submitToDo = title => {
     if (title.trim() === '') {
-      // Display the notification
+      this.props.dispatch({
+        type: 'ADD_NOTI',
+        notis: [
+          {
+            message: 'Please entry the title.'
+          }
+        ]
+      })
     } else {
       this.props.dispatch({
         type: 'CREATE_TODO',
@@ -107,9 +114,10 @@ class ToDoContainer extends React.Component {
   }
 }
 
-const ConnectedToDoContainer = connect(({ todos, filter }) => ({
+const ConnectedToDoContainer = connect(({ todos, filter, notis }) => ({
   todos,
-  filter
+  filter,
+  notis
 }))(ToDoContainer)
 
 export default function ToDoAppWithRedux() {
