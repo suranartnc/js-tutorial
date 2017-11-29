@@ -61,7 +61,9 @@ class ToDoContainer extends React.Component {
   }
 
   clearCompleted = () => {
-    console.log('clearCompleted')
+    this.props.dispatch({
+      type: 'CLEAR_COMPLETE_TODO'
+    })
   }
 
   toggleCheckAll = () => {

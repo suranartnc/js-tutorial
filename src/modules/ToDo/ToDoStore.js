@@ -32,6 +32,11 @@ function todosUpdater(state = [], action) {
         return todo
       })
 
+    case 'CLEAR_COMPLETE_TODO':
+      return state.filter(function(todo) {
+        return !todo.completed
+      })
+
     default:
       return state
   }
