@@ -1,0 +1,60 @@
+import { createStore, combineReducers as combineStateUpdater } from 'redux'
+
+function todosUpdater(state = [], action) {
+  const { type } = action
+
+  switch (type) {
+    case 'CREATE_TODO':
+      return state.concat([
+        {
+          id: new Date().getTime(),
+          title: action.title,
+          completed: false
+        }
+      ])
+
+    case 'REMOVE_TODO':
+      return state.filter(function(todo) {
+        return todo.id !== action.id
+      })
+
+    case 'COMPLETE_TODO':
+      return state.map(function(todo) {
+        if (todo.id === action.id) {
+          todo.completed = true
+        }
+        return todo
+      })
+
+    case 'COMPLETE_ALL_TODO':
+      return state.map(function(todo) {
+        todo.completed = true
+        return todo
+      })
+
+    default:
+      return state
+  }
+}
+
+function filterUpdater(state = 'all', action) {
+  const { type } = action
+
+  switch (type) {
+    case 'SET_FILTER':
+      return action.filter
+
+    default:
+      return state
+  }
+}
+
+const store = createStore(
+  combineStateUpdater({
+    todos: todosUpdater,
+    filter: filterUpdater
+    // notis: notisUpdater
+  })
+)
+
+export default store
