@@ -1,4 +1,11 @@
-import { createStore, combineReducers as combineStateUpdater } from 'redux'
+import {
+  createStore,
+  combineReducers as combineStateUpdater,
+  applyMiddleware
+} from 'redux'
+
+import apiFetcher from '../middlewares/apiFetcher'
+import logger from '../middlewares/logger'
 
 import todosUpdater from './todosUpdater'
 import filterUpdater from './filterUpdater'
@@ -10,6 +17,7 @@ const rootStateUpdater = combineStateUpdater({
   notis: notisUpdater
 })
 
-const store = createStore(rootStateUpdater)
+const enhancer = applyMiddleware(apiFetcher, logger)
+const store = createStore(rootStateUpdater, enhancer)
 
 export default store
