@@ -7,10 +7,12 @@ const apiFetcher = () => next => action => {
   return fetch(api.url)
     .then(res => res.json())
     .then(data => {
-      next({
-        ...rest,
-        data
-      })
+      setTimeout(() => {
+        next({
+          ...rest,
+          data
+        })
+      }, 1500)
     })
     .catch(error => console.log(error))
 }

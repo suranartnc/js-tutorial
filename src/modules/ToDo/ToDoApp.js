@@ -46,6 +46,15 @@ function ToDoApp({
 }
 
 class ToDoContainer extends React.Component {
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'LOAD_TODOS',
+      api: {
+        url: 'http://myaday.net/pop/api.php'
+      }
+    })
+  }
+
   removeTodo = id => () => {
     this.props.dispatch({
       type: 'REMOVE_TODO',

@@ -4,6 +4,15 @@ export default function todosUpdater(state = emptyList, action) {
   const { type } = action
 
   switch (type) {
+    case 'LOAD_TODOS':
+      return action.data.data.slice(0, 5).map(function(todo) {
+        return {
+          id: todo.cat_id,
+          title: todo.cat_name,
+          completed: false
+        }
+      })
+
     case 'CREATE_TODO':
       return [
         {
