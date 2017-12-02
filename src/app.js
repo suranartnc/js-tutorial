@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Router, Route, Link } from './modules/Router'
+import { Route, Link } from 'react-router-dom'
 
 import TimerApp from './modules/Timer/TimerApp'
 import DictApp from './modules/Dictionary/DictApp'
@@ -24,11 +24,7 @@ function AppLauncher() {
 }
 
 function App() {
-  return (
-    <Router>
-      <AppLauncher />
-    </Router>
-  )
+  return <AppLauncher />
 }
 
 export default App

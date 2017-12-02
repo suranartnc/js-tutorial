@@ -1,6 +1,8 @@
 import express from 'express'
 import React from 'react'
 import ReactDOM from 'react-dom/server'
+import { StaticRouter } from 'react-router-dom'
+
 import App from './app'
 
 const port = 8080
@@ -10,7 +12,13 @@ app.listen(port)
 app.use(express.static('public'))
 
 app.get('*', function(req, res) {
-  const content = ReactDOM.renderToString(<App />)
+  const context = {}
+
+  const content = ReactDOM.renderToString(
+    <StaticRouter location={req.url} context={context}>
+      <App />
+    </StaticRouter>
+  )
 
   const html = `
     <html>
