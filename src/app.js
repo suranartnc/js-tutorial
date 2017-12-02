@@ -1,23 +1,50 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import TimerApp from './modules/Timer/TimerApp'
 import DictApp from './modules/Dictionary/DictApp'
 import ToDoApp from './modules/ToDo/ToDoApp'
 
-function Link({ to, transitionTo, children }) {
-  return (
-    <a href={to} onClick={transitionTo(to)}>
-      {children}
-    </a>
-  )
+class Link extends React.Component {
+  render() {
+    const { to, children } = this.props
+
+    return (
+      <a href={to} onClick={this.context.transitionTo(to)}>
+        {children}
+      </a>
+    )
+  }
 }
 
-function Route({ path, location, component: Component }) {
-  return <div>{path === location && <Component />}</div>
+Link.contextTypes = {
+  transitionTo: PropTypes.func
 }
+
+class Route extends React.Component {
+  render() {
+    const { path, component: Component } = this.props
+
+    return (
+      <div>{path === this.context.getCurrentLocation() && <Component />}</div>
+    )
+  }
+}
+
+Route.contextTypes = {
+  getCurrentLocation: PropTypes.func
+}
+
 class AppLauncher extends React.Component {
   state = {
     location: '/'
+  }
+
+  getChildContext() {
+    return {
+      transitionTo: this.transitionTo,
+      getCurrentLocation: this.getCurrentLocation
+    }
   }
 
   transitionTo = url => e => {
@@ -30,6 +57,10 @@ class AppLauncher extends React.Component {
     })
   }
 
+  getCurrentLocation = () => {
+    return this.state.location
+  }
+
   componentDidMount() {
     this.setState({
       location: window.location.pathname
@@ -37,29 +68,26 @@ class AppLauncher extends React.Component {
   }
 
   render() {
-    const { location } = this.state
-
     return (
       <div>
         <nav>
-          <Link to="/dictionary" transitionTo={this.transitionTo}>
-            Dictionary
-          </Link>
-          <Link to="/timer" transitionTo={this.transitionTo}>
-            Timer
-          </Link>
-          <Link to="/todo" transitionTo={this.transitionTo}>
-            To-Do
-          </Link>
+          <Link to="/dictionary">Dictionary</Link>
+          <Link to="/timer">Timer</Link>
+          <Link to="/todo">To-Do</Link>
         </nav>
         <div>
-          <Route path="/todo" component={ToDoApp} location={location} />
-          <Route path="/dictionary" component={DictApp} location={location} />
-          <Route path="/timer" component={TimerApp} location={location} />
+          <Route path="/todo" component={ToDoApp} />
+          <Route path="/dictionary" component={DictApp} />
+          <Route path="/timer" component={TimerApp} />
         </div>
       </div>
     )
   }
+}
+
+AppLauncher.childContextTypes = {
+  transitionTo: PropTypes.func,
+  getCurrentLocation: PropTypes.func
 }
 
 function App() {
