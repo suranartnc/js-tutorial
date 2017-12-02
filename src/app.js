@@ -6,66 +6,56 @@ import ToDoApp from './modules/ToDo/ToDoApp'
 
 function Link({ to, transitionTo, children }) {
   return (
-    <a href="" onClick={transitionTo(to)}>
+    <a href={to} onClick={transitionTo(to)}>
       {children}
     </a>
   )
 }
 
-function Navigation({ transitionTo }) {
-  return (
-    <div>
-      <Link to="dictionary" transitionTo={transitionTo}>
-        Dictionary
-      </Link>
-      <Link to="timer" transitionTo={transitionTo}>
-        Timer
-      </Link>
-      <Link to="todo" transitionTo={transitionTo}>
-        To-Do
-      </Link>
-    </div>
-  )
+function Route({ path, location, component: Component }) {
+  return <div>{path === location && <Component />}</div>
 }
-
-function Route({ name, renderComponent, component: Component }) {
-  return <div>{name === renderComponent && <Component />}</div>
-}
-class Router extends React.Component {
+class AppLauncher extends React.Component {
   state = {
-    renderComponent: 'todo'
+    location: '/'
   }
 
-  transitionTo = component => e => {
+  transitionTo = url => e => {
     e.preventDefault()
 
+    history.pushState({}, '', url)
+
     this.setState({
-      renderComponent: component
+      location: url
+    })
+  }
+
+  componentDidMount() {
+    this.setState({
+      location: window.location.pathname
     })
   }
 
   render() {
-    const { renderComponent } = this.state
+    const { location } = this.state
 
     return (
       <div>
-        <Navigation transitionTo={this.transitionTo} />
+        <nav>
+          <Link to="/dictionary" transitionTo={this.transitionTo}>
+            Dictionary
+          </Link>
+          <Link to="/timer" transitionTo={this.transitionTo}>
+            Timer
+          </Link>
+          <Link to="/todo" transitionTo={this.transitionTo}>
+            To-Do
+          </Link>
+        </nav>
         <div>
-          <Route
-            name="todo"
-            component={ToDoApp}
-            renderComponent={renderComponent}
-          />
-          <Route
-            name="dictionary"
-            component={DictApp}
-            renderComponent={renderComponent}
-          />
-          <Route
-            name="timer"
-            component={TimerApp}
-            renderComponent={renderComponent}
-          />
+          <Route path="/todo" component={ToDoApp} location={location} />
+          <Route path="/dictionary" component={DictApp} location={location} />
+          <Route path="/timer" component={TimerApp} location={location} />
         </div>
       </div>
     )
@@ -73,7 +63,7 @@ class Router extends React.Component {
 }
 
 function App() {
-  return <Router />
+  return <AppLauncher />
 }
 
 export default App
