@@ -1,11 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import withPreloader from '../hocs/withPreloader'
 
 import Layout from '../components/Layout'
 
-function EntryPage({ loading, entry, relateEntries }) {
-  if (loading) return 'Loading...'
-
+function EntryPage({ entry, relateEntries }) {
   return (
     <Layout>
       <h1>{entry.title}</h1>
@@ -24,6 +23,8 @@ function EntryPage({ loading, entry, relateEntries }) {
     </Layout>
   )
 }
+
+const EntryPageWithPreloader = withPreloader(EntryPage)
 
 class EntryPageContainer extends React.Component {
   api = 'http://localhost:3000/posts'
@@ -78,7 +79,7 @@ class EntryPageContainer extends React.Component {
 
   render() {
     return (
-      <EntryPage
+      <EntryPageWithPreloader
         loading={this.state.loading}
         entry={this.state.entry}
         relateEntries={this.state.relateEntries}
