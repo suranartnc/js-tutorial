@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { compose } from 'redux'
 
 import withLayout from '../hocs/withLayout'
 import withPreloader from '../hocs/withPreloader'
@@ -24,7 +25,7 @@ function EntryPage({ entry, relateEntries }) {
   )
 }
 
-const EntryPageWithPreloader = withLayout(withPreloader(EntryPage))
+const EnhanceEntryPage = compose(withLayout, withPreloader)(EntryPage)
 
 class EntryPageContainer extends React.Component {
   api = 'http://localhost:3000/posts'
@@ -79,7 +80,7 @@ class EntryPageContainer extends React.Component {
 
   render() {
     return (
-      <EntryPageWithPreloader
+      <EnhanceEntryPage
         loading={this.state.loading}
         entry={this.state.entry}
         relateEntries={this.state.relateEntries}
