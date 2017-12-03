@@ -10,7 +10,7 @@ function HomePage({ entries }) {
         return (
           <article key={entry.id}>
             <h2>
-              <Link to="/entry">{entry.title}</Link>
+              <Link to={`/entry/${entry.id}/`}>{entry.title}</Link>
             </h2>
             <p>{entry.excerpt}</p>
           </article>

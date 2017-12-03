@@ -43,7 +43,7 @@ app.get('*', function(req, res) {
       </head>
       <body>
         <div id="root">${content}</div>
-        <script src="./build/client.bundle.js"></script>
+        <script src="/build/client.bundle.js"></script>
       </body>
     </html>
   `

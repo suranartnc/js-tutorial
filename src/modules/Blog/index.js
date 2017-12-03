@@ -9,7 +9,7 @@ function BlogApp() {
   return (
     <div>
       <Route exact path="/" component={HomePage} />
-      <Route exact path="/entry" component={EntryPage} />
+      <Route exact path="/entry/:id" component={EntryPage} />
       <Route exact path="/about" component={AboutPage} />
     </div>
   )
