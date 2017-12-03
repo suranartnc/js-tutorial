@@ -32,12 +32,16 @@ class EntryPageContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchEntry()
+    this.fetchEntry(this.props.match.params.id)
     this.fetchRelateEntries()
   }
 
-  fetchEntry = () => {
-    const id = this.props.match.params.id
+  componentWillReceiveProps(nextProps) {
+    this.fetchEntry(nextProps.match.params.id)
+  }
+
+  fetchEntry = id => {
+    document.getElementsByTagName('body')[0].scrollTop = 0
 
     fetch(`${this.api}/${id}/`)
       .then(res => res.json())
