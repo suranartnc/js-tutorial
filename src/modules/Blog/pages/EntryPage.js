@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { compose } from 'redux'
+import { compose, withState, lifecycle } from 'recompose'
 
 import withLayout from '../hocs/withLayout'
 import withPreloader from '../hocs/withPreloader'
+
+const api = 'http://localhost:3000/posts'
 
 function EntryPage({ entry, relateEntries }) {
   return (
@@ -25,68 +27,46 @@ function EntryPage({ entry, relateEntries }) {
   )
 }
 
-const EnhanceEntryPage = compose(withLayout, withPreloader)(EntryPage)
+const EnhancedEntryPage = compose(
+  withState('loading', 'setLoading', false),
+  withState('entry', 'setEntry', {}),
+  withState('relateEntries', 'setRelateEntries', []),
+  lifecycle({
+    fetchEntry(id) {
+      document.getElementsByTagName('body')[0].scrollTop = 0
 
-class EntryPageContainer extends React.Component {
-  api = 'http://localhost:3000/posts'
+      this.props.setLoading(true)
 
-  state = {
-    loading: false,
-    entry: {},
-    relateEntries: []
-  }
-
-  componentDidMount() {
-    this.fetchEntry(this.props.match.params.id)
-    this.fetchRelateEntries()
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.id !== this.props.match.params.id) {
-      this.fetchEntry(nextProps.match.params.id)
+      fetch(`${api}/${id}/`)
+        .then(res => res.json())
+        .then(json => {
+          setTimeout(() => {
+            this.props.setLoading(false)
+            this.props.setEntry(json)
+          }, 1000)
+        })
+    },
+    fetchRelateEntries() {
+      fetch(api)
+        .then(res => res.json())
+        .then(json => {
+          setTimeout(() => {
+            this.props.setRelateEntries(json)
+          }, 1000)
+        })
+    },
+    componentDidMount() {
+      this.fetchEntry(this.props.match.params.id)
+      this.fetchRelateEntries()
+    },
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.match.params.id !== this.props.match.params.id) {
+        this.fetchEntry(nextProps.match.params.id)
+      }
     }
-  }
+  }),
+  withLayout,
+  withPreloader
+)(EntryPage)
 
-  fetchEntry = id => {
-    document.getElementsByTagName('body')[0].scrollTop = 0
-
-    this.setState({
-      loading: true
-    })
-
-    fetch(`${this.api}/${id}/`)
-      .then(res => res.json())
-      .then(json => {
-        setTimeout(() => {
-          this.setState({
-            loading: false,
-            entry: json
-          })
-        }, 1000)
-      })
-  }
-
-  fetchRelateEntries = () => {
-    fetch(this.api)
-      .then(res => res.json())
-      .then(json => {
-        setTimeout(() => {
-          this.setState({
-            relateEntries: json
-          })
-        }, 1000)
-      })
-  }
-
-  render() {
-    return (
-      <EnhanceEntryPage
-        loading={this.state.loading}
-        entry={this.state.entry}
-        relateEntries={this.state.relateEntries}
-      />
-    )
-  }
-}
-
-export default EntryPageContainer
+export default EnhancedEntryPage
