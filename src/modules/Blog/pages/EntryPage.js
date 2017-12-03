@@ -7,7 +7,7 @@ function EntryPage({ entry, relateEntries }) {
   return (
     <Layout>
       <h1>{entry.title}</h1>
-      <article>{entry.body}</article>
+      <article dangerouslySetInnerHTML={{ __html: entry.body }} />
 
       {relateEntries.map(function(entry) {
         return (
