@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import withPreloader from '../hocs/withPreloader'
 
-import Layout from '../components/Layout'
+import withLayout from '../hocs/withLayout'
+import withPreloader from '../hocs/withPreloader'
 
 function EntryPage({ entry, relateEntries }) {
   return (
-    <Layout>
+    <div>
       <h1>{entry.title}</h1>
       <article dangerouslySetInnerHTML={{ __html: entry.body }} />
 
@@ -20,11 +20,11 @@ function EntryPage({ entry, relateEntries }) {
           </article>
         )
       })}
-    </Layout>
+    </div>
   )
 }
 
-const EntryPageWithPreloader = withPreloader(EntryPage)
+const EntryPageWithPreloader = withLayout(withPreloader(EntryPage))
 
 class EntryPageContainer extends React.Component {
   api = 'http://localhost:3000/posts'
