@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 
 import Layout from '../components/Layout'
 
-function EntryPage({ entry, relateEntries }) {
+function EntryPage({ loading, entry, relateEntries }) {
+  if (loading) return 'Loading...'
+
   return (
     <Layout>
       <h1>{entry.title}</h1>
@@ -27,6 +29,7 @@ class EntryPageContainer extends React.Component {
   api = 'http://localhost:3000/posts'
 
   state = {
+    loading: false,
     entry: {},
     relateEntries: []
   }
@@ -45,12 +48,19 @@ class EntryPageContainer extends React.Component {
   fetchEntry = id => {
     document.getElementsByTagName('body')[0].scrollTop = 0
 
+    this.setState({
+      loading: true
+    })
+
     fetch(`${this.api}/${id}/`)
       .then(res => res.json())
       .then(json => {
-        this.setState({
-          entry: json
-        })
+        setTimeout(() => {
+          this.setState({
+            loading: false,
+            entry: json
+          })
+        }, 1000)
       })
   }
 
@@ -58,15 +68,18 @@ class EntryPageContainer extends React.Component {
     fetch(this.api)
       .then(res => res.json())
       .then(json => {
-        this.setState({
-          relateEntries: json
-        })
+        setTimeout(() => {
+          this.setState({
+            relateEntries: json
+          })
+        }, 1000)
       })
   }
 
   render() {
     return (
       <EntryPage
+        loading={this.state.loading}
         entry={this.state.entry}
         relateEntries={this.state.relateEntries}
       />
