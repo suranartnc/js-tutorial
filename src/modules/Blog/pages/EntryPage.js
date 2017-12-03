@@ -1,7 +1,9 @@
 import React from 'react'
 
+import Layout from '../components/Layout'
+
 function EntryPage() {
-  return <div>This is entry page.</div>
+  return <Layout>This is entry page.</Layout>
 }
 
 export default EntryPage
