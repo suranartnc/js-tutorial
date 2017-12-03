@@ -37,7 +37,9 @@ class EntryPageContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.fetchEntry(nextProps.match.params.id)
+    if (nextProps.match.params.id !== this.props.match.params.id) {
+      this.fetchEntry(nextProps.match.params.id)
+    }
   }
 
   fetchEntry = id => {
