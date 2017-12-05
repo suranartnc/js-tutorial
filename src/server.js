@@ -1,6 +1,7 @@
 import express from 'express'
 import React from 'react'
 import ReactDOM from 'react-dom/server'
+
 import App from './app'
 
 const port = 8080
@@ -10,6 +11,8 @@ app.listen(port)
 app.use(express.static('public'))
 
 app.get('*', function(req, res) {
+  const context = {}
+
   const content = ReactDOM.renderToString(<App />)
 
   const html = `
@@ -35,7 +38,7 @@ app.get('*', function(req, res) {
       </head>
       <body>
         <div id="root">${content}</div>
-        <script src="./build/client.bundle.js"></script>
+        <script src="/build/client.bundle.js"></script>
       </body>
     </html>
   `

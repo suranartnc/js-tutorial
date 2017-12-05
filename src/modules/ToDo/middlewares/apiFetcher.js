@@ -18,7 +18,7 @@ const apiFetcher = ({ dispatch }) => next => action => {
           data,
           loading: false
         })
-      }, 1500)
+      }, 0)
     })
     .catch(error => console.log(error))
 }

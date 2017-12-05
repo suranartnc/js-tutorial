@@ -1,8 +1,8 @@
 import React from 'react'
-import ToDoApp from './modules/ToDo/ToDoApp'
+import BlogApp from './modules/Blog'
 
 function App() {
-  return <ToDoApp />
+  return <BlogApp />
 }
 
 export default App

@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon index.js",
     "dev": "webpack --watch",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "api": "node ./src/api/server.js"
   },
   "author": "Suranart Niamcome",
   "license": "MIT",
@@ -28,6 +29,8 @@
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
     "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "recompose": "^0.26.0",
     "redux": "^3.7.2",
     "webpack": "^3.8.1"
   },
@@ -37,6 +40,8 @@
     "eslint-config-prettier": "^2.7.0",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.4.0",
+    "faker": "^4.1.0",
+    "json-server": "^0.12.1",
     "nodemon": "^1.12.1",
     "prettier": "^1.7.4"
   }
