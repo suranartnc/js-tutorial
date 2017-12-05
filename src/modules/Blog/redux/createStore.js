@@ -1,10 +1,26 @@
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import apiFetcher from './middlewares/apiFetcher'
 
 const reducer = combineReducers({
-  dummy: function (state = {}, action) {
-    return state
+  entries: function (state = [], action) {
+    switch (action.type) {
+      case 'ENTRIES_SET':
+        return action.data
+      default:
+        return state
+    }
+  },
+  entry: function (state = {}, action) {
+    switch (action.type) {
+      case 'ENTRY_SET':
+        return action.data
+      default:
+        return state
+    }
   }
 })
 
-export default () => createStore(reducer)
+const enhancer = applyMiddleware(apiFetcher)
+
+export default () => createStore(reducer, enhancer)
 

@@ -1,11 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { compose, withState, lifecycle } from 'recompose'
+import { connect } from 'react-redux'
 
 import withLayout from '../hocs/withLayout'
 import withPreloader from '../hocs/withPreloader'
-
-const api = 'http://localhost:3000/posts'
 
 function EntryPage({ entry, relateEntries }) {
   return (
@@ -13,7 +12,7 @@ function EntryPage({ entry, relateEntries }) {
       <h1>{entry.title}</h1>
       <article dangerouslySetInnerHTML={{ __html: entry.body }} />
 
-      {relateEntries.map(function(entry) {
+      {relateEntries.map(function (entry) {
         return (
           <article key={entry.id}>
             <h2>
@@ -28,32 +27,27 @@ function EntryPage({ entry, relateEntries }) {
 }
 
 const EnhancedEntryPage = compose(
-  withState('loading', 'setLoading', false),
-  withState('entry', 'setEntry', {}),
-  withState('relateEntries', 'setRelateEntries', []),
+  connect(({ loading, entry, entries }) => ({ loading, entry, relateEntries: entries })),
   lifecycle({
     fetchEntry(id) {
       document.getElementsByTagName('body')[0].scrollTop = 0
 
-      this.props.setLoading(true)
-
-      fetch(`${api}/${id}/`)
-        .then(res => res.json())
-        .then(json => {
-          setTimeout(() => {
-            this.props.setLoading(false)
-            this.props.setEntry(json)
-          }, 1000)
-        })
+      this.props.dispatch({
+        type: 'ENTRY_SET',
+        api: {
+          url: `http://localhost:3000/posts/${id}`
+        }
+      })
     },
     fetchRelateEntries() {
-      fetch(api)
-        .then(res => res.json())
-        .then(json => {
-          setTimeout(() => {
-            this.props.setRelateEntries(json)
-          }, 1000)
+      if (this.props.relateEntries.length === 0) {
+        this.props.dispatch({
+          type: 'ENTRIES_SET',
+          api: {
+            url: 'http://localhost:3000/posts'
+          }
         })
+      }
     },
     componentDidMount() {
       this.fetchEntry(this.props.match.params.id)

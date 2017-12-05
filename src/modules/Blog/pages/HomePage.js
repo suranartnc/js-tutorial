@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import Layout from '../components/Layout'
 
 function HomePage({ entries }) {
   return (
     <Layout>
-      {entries.map(function(entry) {
+      {entries.map(function (entry) {
         return (
           <article key={entry.id}>
             <h2>
@@ -21,29 +22,20 @@ function HomePage({ entries }) {
 }
 
 class HomePageContainer extends React.Component {
-  api = 'http://localhost:3000/posts'
-
-  state = {
-    entries: []
-  }
-
   componentDidMount() {
-    this.fetchEntries()
-  }
-
-  fetchEntries = () => {
-    fetch(this.api)
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          entries: json
-        })
+    if (this.props.entries.length === 0) {
+      this.props.dispatch({
+        type: 'ENTRIES_SET',
+        api: {
+          url: 'http://localhost:3000/posts'
+        }
       })
+    }
   }
 
   render() {
-    return <HomePage entries={this.state.entries} />
+    return <HomePage entries={this.props.entries} />
   }
 }
 
-export default HomePageContainer
+export default connect(({ entries }) => ({ entries }))(HomePageContainer)
