@@ -12,13 +12,11 @@ const apiFetcher = ({ dispatch }) => next => action => {
   return fetch(api.url)
     .then(res => res.json())
     .then(data => {
-      setTimeout(() => {
-        next({
-          ...rest,
-          data,
-          loading: false
-        })
-      }, 0)
+      return next({
+        ...rest,
+        data,
+        loading: false
+      })
     })
     .catch(error => console.log(error))
 }

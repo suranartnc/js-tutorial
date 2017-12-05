@@ -9,7 +9,7 @@ import App from './app'
 const container = document.getElementById('root')
 
 ReactDOM.hydrate(
-  <Provider store={createStore()}>
+  <Provider store={createStore(window.__INITIAL_STATE__)}>
     <Router>
       <App />
     </Router>

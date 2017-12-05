@@ -22,5 +22,5 @@ const reducer = combineReducers({
 
 const enhancer = applyMiddleware(apiFetcher)
 
-export default () => createStore(reducer, enhancer)
+export default (initialState = {}) => createStore(reducer, initialState, enhancer)
 

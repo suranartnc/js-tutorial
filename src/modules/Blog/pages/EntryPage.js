@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { compose, withState, lifecycle } from 'recompose'
+import { compose, lifecycle } from 'recompose'
 import { connect } from 'react-redux'
 
 import withLayout from '../hocs/withLayout'
