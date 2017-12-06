@@ -1,6 +1,7 @@
 import express from 'express'
 import React from 'react'
 import ReactDOM from 'react-dom/server'
+import { StaticRouter } from 'react-router-dom'
 
 import App from './app'
 
@@ -13,7 +14,11 @@ app.use(express.static('public'))
 app.get('*', function(req, res) {
   const context = {}
 
-  const content = ReactDOM.renderToString(<App />)
+  const content = ReactDOM.renderToString(
+    <StaticRouter location={req.url} context={context}>
+      <App />
+    </StaticRouter>
+  )
 
   const html = `
     <html>
