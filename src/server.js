@@ -2,7 +2,9 @@ import express from 'express'
 import React from 'react'
 import ReactDOM from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
+import store from './modules/Blog/redux/store'
 import App from './app'
 
 const port = 8080
@@ -15,9 +17,11 @@ app.get('*', function(req, res) {
   const context = {}
 
   const content = ReactDOM.renderToString(
-    <StaticRouter location={req.url} context={context}>
-      <App />
-    </StaticRouter>
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+    </Provider>
   )
 
   const html = `
