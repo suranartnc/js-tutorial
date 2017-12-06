@@ -1,6 +1,8 @@
 import React from 'react'
 
-import { Link, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+
+import Layout from './components/Layout'
 
 import HomePage from '../Blog/pages/HomePage'
 import EntryPage from '../Blog/pages/EntryPage'
@@ -8,20 +10,11 @@ import AboutPage from '../Blog/pages/AboutPage'
 
 function BlogApp() {
   return (
-    <div>
-      <div>
-        <a href="/">My Blog App</a>
-      </div>
-
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-      </nav>
-
+    <Layout>
       <Route exact path="/" component={HomePage} />
-      <Route path="/entry/:id" component={EntryPage} />
-      <Route path="/about" component={AboutPage} />
-    </div>
+      <Route exact path="/entry/:id" component={EntryPage} />
+      <Route exact path="/about" component={AboutPage} />
+    </Layout>
   )
 }
 
