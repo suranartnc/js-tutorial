@@ -1,19 +1,30 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-export default function HomePage() {
-  const api = 'http://localhost:3000/posts'
+class HomePage extends React.Component {
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'ENTRIES_SET',
+      api: {
+        url: 'http://localhost:3000/posts'
+      }
+    })
+  }
 
-  return (
-    <div>
-      <p>
-        Fetch data from&nbsp;
-        <a href={api} target="_blank">
-          {api}
-        </a>
-      </p>
-      <p>&nbsp;</p>
-      <Link to="/entry/1/">Link to Entry #1</Link>
-    </div>
-  )
+  render() {
+    return (
+      <div>
+        {this.props.entryList.map(function(entry) {
+          return (
+            <h2 key={entry.id}>
+              <Link to={`/entry/${entry.id}/`}>{entry.title}</Link>
+            </h2>
+          )
+        })}
+      </div>
+    )
+  }
 }
+
+export default connect(({ entryList }) => ({ entryList }))(HomePage)

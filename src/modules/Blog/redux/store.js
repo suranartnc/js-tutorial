@@ -10,19 +10,24 @@ import logger from './middlewares/logger'
 const rootStateUpdater = combineStateUpdaters({
   entryList: function(state = [], action) {
     switch (action.type) {
-      case 'XXX':
-        return state
+      case 'ENTRIES_SET':
+        return action.data
       default:
         return state
     }
   },
   entryDetail: function(state = {}, action) {
     switch (action.type) {
-      case 'YYY':
-        return state
+      case 'ENTRY_SET':
+        return action.data
       default:
         return state
     }
+  },
+  loading: function(state = false, action) {
+    if (action.loading !== undefined) return action.loading
+
+    return state
   }
 })
 
