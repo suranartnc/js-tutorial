@@ -2,19 +2,17 @@ import React from 'react'
 
 import { Route } from 'react-router-dom'
 
-import Layout from './components/Layout'
-
 import HomePage from '../Blog/pages/HomePage'
-import EntryPage from '../Blog/pages/EntryPage'
+import EntryPageContainer from '../Blog/pages/EntryPageContainer'
 import AboutPage from '../Blog/pages/AboutPage'
 
 function BlogApp() {
   return (
-    <Layout>
+    <div>
       <Route exact path="/" component={HomePage} />
-      <Route exact path="/entry/:id" component={EntryPage} />
+      <Route exact path="/entry/:id" component={EntryPageContainer} />
       <Route exact path="/about" component={AboutPage} />
-    </Layout>
+    </div>
   )
 }
 

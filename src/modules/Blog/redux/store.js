@@ -12,6 +12,8 @@ const rootStateUpdater = combineStateUpdaters({
     switch (action.type) {
       case 'ENTRIES_SET':
         return action.data
+      case 'ENTRIES_SET_REQUEST':
+        return []
       default:
         return state
     }
@@ -20,6 +22,8 @@ const rootStateUpdater = combineStateUpdaters({
     switch (action.type) {
       case 'ENTRY_SET':
         return action.data
+      case 'ENTRY_SET_REQUEST':
+        return {}
       default:
         return state
     }
