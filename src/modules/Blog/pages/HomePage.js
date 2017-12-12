@@ -24,6 +24,8 @@ export default compose(
   connect(({ entryList, loading }) => ({ entryList, loading })),
   lifecycle({
     componentDidMount() {
+      if (this.props.entryList.length > 0) return
+
       this.props.dispatch({
         type: 'ENTRIES_SET',
         api: {

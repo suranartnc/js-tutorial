@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
-import store from './modules/Blog/redux/store'
+import createStore from './modules/Blog/redux/store'
 import App from './app'
 
 const port = 8080
@@ -17,14 +17,32 @@ app.use(express.static('public'))
 
 app.get('*', function(req, res) {
   const context = {}
+  const store = createStore()
 
-  const content = ReactDOM.renderToString(
+  const app = (
     <Provider store={store}>
       <StaticRouter location={req.url} context={context}>
         <App />
       </StaticRouter>
     </Provider>
   )
+
+  store
+    .dispatch({
+      type: 'ENTRIES_SET',
+      api: {
+        url: 'http://localhost:3000/posts'
+      }
+    })
+    .then(() => {
+      const initialState = store.getState()
+      const html = renderPage(app, initialState)
+      res.send(html)
+    })
+})
+
+function renderPage(app, initialState) {
+  let content = ReactDOM.renderToString(app)
 
   const html = `
     <html>
@@ -49,10 +67,13 @@ app.get('*', function(req, res) {
       </head>
       <body>
         <div id="root">${content}</div>
+        <script>
+          window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+        </script>
         <script src="/build/client.bundle.js"></script>
       </body>
     </html>
   `
 
-  res.send(html)
-})
+  return html
+}

@@ -35,6 +35,8 @@ const rootStateUpdater = combineStateUpdaters({
   }
 })
 
-const enhancer = applyMiddleware(apiFetcher, logger)
+const enhancer = applyMiddleware(apiFetcher)
 
-export default createStore(rootStateUpdater, enhancer)
+export default function(initialState = {}) {
+  return createStore(rootStateUpdater, initialState, enhancer)
+}
